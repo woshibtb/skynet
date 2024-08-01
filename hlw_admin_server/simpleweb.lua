@@ -84,7 +84,19 @@ skynet.start(function()
 					table.insert(tmp, string.format("%s = %s",k,v))
 				end
 				table.insert(tmp, "-----body----\n" .. body)
-				local strResponse = table.concat(tmp,"\n")
+				-- local strResponse = table.concat(tmp,"\n")
+				local strResponse = [[
+					<!DOCTYPE html>
+					<html lang="en">
+					<head>
+						<meta charset="UTF-8">
+						<title>Hello Skynet</title>
+					</head>
+					<body>
+						<h1>Hello Skynet</h1>
+					</body>
+					</html>
+				]]
 				skynet.error("strResponse " .. tostring(strResponse))
 				response(id, interface.write, code, strResponse)
 			end
