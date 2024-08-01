@@ -14,7 +14,6 @@ if mode == "agent" then
 local function response(id, write, ...)
 	-- local ok, err = httpd.write_response(write, ...)
 	-- write = "Hello Skynet"
-	skynet.error("response --->" .. wirte)
 	local ok, err = httpd.write_response(write, ...)
 	if not ok then
 		-- if err == sockethelper.socket_error , that means socket closed.
@@ -85,7 +84,9 @@ skynet.start(function()
 					table.insert(tmp, string.format("%s = %s",k,v))
 				end
 				table.insert(tmp, "-----body----\n" .. body)
-				response(id, interface.write, code, table.concat(tmp,"\n"))
+				local strResponse = table.concat(tmp,"\n")
+				skynet.error("strResponse " .. tostring(strResponse))
+				response(id, interface.write, code, strResponse)
 			end
 		else
 			if url == sockethelper.socket_error then
