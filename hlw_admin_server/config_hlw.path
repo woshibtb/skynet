@@ -1,5 +1,5 @@
 root = "./"
 luaservice = root.."service/?.lua;"..root.."hlw_admin_server/?.lua"
 lualoader = root .. "lualib/loader.lua"
-lua_path = root.."lualib/?.lua;"..root.."lualib/?/init.lua"
+lua_path = root.."lualib/?.lua;"..root.."lualib/?/init.lua;"..root.."hlw_admin_server/?.lua"
 lua_cpath = root .. "luaclib/?.so"
