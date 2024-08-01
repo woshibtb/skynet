@@ -5,6 +5,7 @@ local sockethelper = require "http.sockethelper"
 local urllib = require "http.url"
 local table = table
 local string = string
+local test = require "test"
 
 local mode, protocol = ...
 protocol = protocol or "http"
@@ -99,6 +100,7 @@ skynet.start(function()
 					</html>
 				]]
 				skynet.error("strResponse " .. tostring(strResponse))
+				test.run()
 				response(id, interface.write, code, strResponse)
 			end
 		else
