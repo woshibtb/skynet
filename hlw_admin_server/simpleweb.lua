@@ -12,6 +12,8 @@ protocol = protocol or "http"
 if mode == "agent" then
 
 local function response(id, write, ...)
+	-- local ok, err = httpd.write_response(write, ...)
+	write = "Hello Skynet"
 	local ok, err = httpd.write_response(write, ...)
 	if not ok then
 		-- if err == sockethelper.socket_error , that means socket closed.
