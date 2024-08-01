@@ -1,35 +1,32 @@
 local skynet = require "skynet"
-local socket = require "skynet.socket"
 local httpd = require "http.httpd"
+local socket = require "http.sockethelper"
+local urllib = require "http.url"
 
-local function response(write, status, headers, body)
-    local ok, err = httpd.write_response(write, status, headers, body)
-    if not ok then
-        skynet.error(err)
+local function handle_request(data)
+    local result = "Hello Skynet"
+    return result
+end
+
+local function start(port)
+    local function request_dispatch(session, address)
+        local resp = httpd.read_all(session)
+        local post = httpd.post_info(resp, "POST")
+        local code, message = httpd.response({
+            status = 200,
+            body = handle_request(post or "")
+        })
+        socket.write(session, message)
+        socket.close(session)
     end
+
+    httpd.listen({
+        port = tonumber(port),
+        -- 其他配置项可以在这里设置
+    }, request_dispatch)
 end
 
 skynet.start(function()
-    local id = socket.listen("0.0.0.0", 8001)
-    skynet.error("Listening on port 8001")
-
-    socket.start(id, function(id, addr)
-        skynet.error(addr .. " connected")
-        -- 创建一个读写接口
-        local interface = {
-            init = nil,
-            close = nil,
-            read = socket.readfunc(id),
-            write = socket.writefunc(id),
-        }
-
-        -- 读取 HTTP 请求
-        local code, url, method, header, body = httpd.read_request(interface.read)
-
-        -- 构造响应
-        response(interface.write, 200, { ["Content-Type"] = "text/plain" }, "Hello Skynet")
-
-        -- 关闭连接
-        socket.close(id)
-    end)
+    skynet.error("Starting HTTP server on port 8001 ...")
+    start(8001)
 end)
