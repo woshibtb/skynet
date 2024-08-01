@@ -86,21 +86,22 @@ skynet.start(function()
 				end
 				table.insert(tmp, "-----body----\n" .. body)
 				-- local strResponse = table.concat(tmp,"\n")
-				local strResponse = [[
-					<!DOCTYPE html>
-					<html lang="en">
-					<head>
-						<meta charset="UTF-8">
-						<title>Hello Skynet</title>
-					</head>
-					<body>
-						<h1>Hello Skynet</h1>
-						<h2>Good day today</h2>
-					</body>
-					</html>
-				]]
+				-- local strResponse = [[
+				-- 	<!DOCTYPE html>
+				-- 	<html lang="en">
+				-- 	<head>
+				-- 		<meta charset="UTF-8">
+				-- 		<title>Hello Skynet</title>
+				-- 	</head>
+				-- 	<body>
+				-- 		<h1>Hello Skynet</h1>
+				-- 		<h2>Good day today</h2>
+				-- 	</body>
+				-- 	</html>
+				-- ]]
+				-- test.run()
+				local strResponse = test.GetResponse()
 				skynet.error("strResponse " .. tostring(strResponse))
-				test.run()
 				response(id, interface.write, code, strResponse)
 			end
 		else
