@@ -94,6 +94,7 @@ skynet.start(function()
 					</head>
 					<body>
 						<h1>Hello Skynet</h1>
+						<h2>Good day today</h2>
 					</body>
 					</html>
 				]]
